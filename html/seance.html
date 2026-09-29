@@ -8,25 +8,54 @@
           integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 <body>
-<h1> Salle 1 (h1) </h1>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
-        integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
-        crossorigin="anonymous"></script>
 <div class="container">
-    <h2> Séances du /jour\ /mois\ au /jour\ /mois\ </h2>
-    <div class="row">
-        <div class="border border-green">
-            <h2> Résumé (h2)</h2>
-            <img src="images\affiche-croquette.jpg" class="img-fluid">
-            <h2> Séances (h2)</h2>
+    <h1 class="border border-green"> Salle 1 (h1) </h1>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+            integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+            crossorigin="anonymous"></script>
+    <h6 class="border border-green"> Séances du 21 octobre au 27 octobre </h6>
+
+    <!-- Affiches : bandeau bleu, 3 colonnes sur tous les écrans (pas de breakpoint) -->
+    <div class="row bg-primary text-center py-3">
+        <div class="col-4">
+            <a href="film-leemiller.html"><img src="images/affiche-leemiller.png" class="img-fluid" alt="Lee Miller"></a>
+        </div>
+        <div class="col-4">
+            <a href="film-croquette.html"><img src="images/affiche-croquette.jpg" class="img-fluid" alt="Croquette"></a>
+        </div>
+        <div class="col-4">
+            <img src="images/affiche-smile.jpg" class="img-fluid" alt="Smile">
         </div>
     </div>
+
+    <!-- Horaires : une ligne par jour, sous chaque affiche -->
+    <div class="row bg-primary-subtle text-center">
+        <div class="col-4">mercredi 21 octobre<br>19h30 VOST</div>
+        <div class="col-4">mercredi 21 octobre<br>16h00 VF</div>
+        <div class="col-4">mercredi 21 octobre<br>21h30 VF</div>
+    </div>
+    <div class="row bg-light text-center">
+        <div class="col-4">jeudi 22 octobre<br>22h00 VF</div>
+        <div class="col-4">jeudi 22 octobre<br>17h00 VF</div>
+        <div class="col-4">jeudi 22 octobre<br>19h00 VF</div>
+    </div>
+    <div class="row bg-primary-subtle text-center">
+        <div class="col-4">......</div>
+        <div class="col-4">......</div>
+        <div class="col-4">......</div>
+    </div>
+
+    <h1 class="border border-green"> Salle 2 (h1) </h1>
+
+    <h6 class="border border-green"><a href="index.html">Revenir à l'accueil</a> (lien vers index.html)</h6>
 </div>
+
+
 </body>
 </html>
