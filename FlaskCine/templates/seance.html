@@ -11,7 +11,7 @@
 <body>
 
 <header class="bg-black">
-    <img src="images/banner.png" class="img-fluid">
+    <img src="{{ url_for('static', filename='img/' ~ (seance['affiche'] | default('banner.png'))) }}" class="img-fluid" alt="Affiche du film">
 </header>
 
 <div class="container">
@@ -19,40 +19,33 @@
 
     <h6 class="border border-green"> Séances du 21 octobre au 27 octobre </h6>
 
-    <!-- Affiches : bandeau bleu, 3 colonnes sur tous les écrans (pas de breakpoint) -->
+
     <div class="row text-center py-3">
-        <div class="col-4">
-            <a href ="http://localhost:63342/html/film-leemiller.html"><img src="images/affiche-leemiller.png" class="img-fluid" alt="Lee Miller"> </a>
+
+        {% for seance in seances %}
+        <div class="col-4 mb-4">
+
+            <a href="{{ url_for('details_film', id=seance['id']) }}">
+            <img src="{{ url_for('static', filename='img/' ~ seance['id'] ~ '.jpg') }}"
+                 class="img-fluid mb-2" alt="{{ seance['titre'] }}">
+            </a>
+
+            <!-- 2. Titre et horaire du film affichés juste en dessous de l'image -->
+            <div class="p-2 bg-light border rounded">
+                <strong>{{ seance['titre'] }}</strong><br>
+                <span class="text-muted">{{ seance['heure'] }}</span>
+            </div>
         </div>
-        <div class="col-4">
-            <a href="http://localhost:63342/html/film-croquette.html"> <img src="images/affiche-croquette.jpg" class="img-fluid" alt="Croquette"> </a>
-        </div>
-        <div class="col-4">
-            <a href ="http://localhost:63342/html/film-smile.html"><img src="images/affiche-smile.jpg" class="img-fluid" alt="Smile"></a>
-        </div>
+        {% endfor %}
+
     </div>
 
-    <!-- Horaires : une ligne par jour, sous chaque affiche -->
-    <div class="row bg-primary-subtle text-center">
-        <div class="col-4">mercredi 21 octobre<br>19h30 VOST</div>
-        <div class="col-4">mercredi 21 octobre<br>16h00 VF</div>
-        <div class="col-4">mercredi 21 octobre<br>21h30 VF</div>
-    </div>
-    <div class="row bg-light text-center">
-        <div class="col-4">jeudi 22 octobre<br>22h00 VF</div>
-        <div class="col-4">jeudi 22 octobre<br>17h00 VF</div>
-        <div class="col-4">jeudi 22 octobre<br>19h00 VF</div>
-    </div>
-    <div class="row bg-primary-subtle text-center">
-        <div class="col-4">......</div>
-        <div class="col-4">......</div>
-        <div class="col-4">......</div>
-    </div>
 
-    <h1 class="border border-green"> Salle 2 </h1>
-
-    <h6 class="border border-green"><a href="index.html">Revenir à l'accueil</a> (lien vers index.html)</h6>
+    <h6 class="border border-green">
+        <a href="/">Revenir à l'accueil</a>
+    </h6>
 </div>
+
 
 <footer class="footer"> BTS Ciel de Simone de Beauvoir TOURET Valentin</footer>
 

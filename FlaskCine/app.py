@@ -52,30 +52,52 @@ def select_data():
     co = get_connection()
     curseur = co.cursor()
     requete_sql = """
-            SELECT SEANCE.id, 
-                   SEANCE.heure, 
-                   FILMS.titre, 
-                   SALLE.salle, 
-                   FILMS.resume
-                   FROM SEANCE
-                   INNER JOIN FILMS ON SEANCE.id_films = FILMS.id
-                   INNER JOIN SALLE ON SEANCE.id_salle = SALLE.id
-                   WHERE SEANCE.heure >= NOW()
-                   ORDER BY SEANCE.heure ASC LIMIT 1
+                  SELECT SEANCE.id,
+                         SEANCE.heure,
+                         FILMS.titre,
+                         FILMS.affiche, -- AJOUTÉ : Pour charger l'image sur l'accueil
+                         SALLE.salle,
+                         FILMS.resume
+                  FROM SEANCE
+                           INNER JOIN FILMS ON SEANCE.id_films = FILMS.id
+                           INNER JOIN SALLE ON SEANCE.id_salle = SALLE.id
+                  WHERE SEANCE.heure >= NOW()
+                  ORDER BY SEANCE.heure ASC LIMIT 1 \
                   """
     curseur.execute(requete_sql)
     seance = curseur.fetchone()
     curseur.close()
     co.close()
-    if seance:
-        return jsonify({
-            "id": seance['id'],
-            "heure": str(seance['heure']),
-            "titre": seance['titre'],
-            "salle": seance['salle'],
-            "resume": seance['resume']
-        })
-    else:
-        return render_template('index.html')
+
+    return render_template('index.html', prochaine_seance=seance)
+
+@app.route('/film/<int:id>')
+def details_film(id):
+    co = get_connection()
+    curseur = co.cursor()
+    # Requête calquée strictement sur vos colonnes : id, titre, resume, age_limite, heure, langue, salle
+    requete_sql = """
+                  SELECT FILMS.id, \
+                         FILMS.titre, \
+                         FILMS.resume, \
+                         FILMS.age_limite,
+                         SEANCE.heure, \
+                         SEANCE.langue, \
+                         SALLE.salle
+                  FROM FILMS
+                           LEFT JOIN SEANCE ON FILMS.id = SEANCE.id_films
+                           LEFT JOIN SALLE ON SEANCE.id_salle = SALLE.id
+                  WHERE FILMS.id = %s LIMIT 1 \
+                  """
+    curseur.execute(requete_sql, (id,))
+    donnees_film = curseur.fetchone()
+    curseur.close()
+    co.close()
+
+    if donnees_film:
+        return render_template('film.html', film=donnees_film)
+    return "Film non trouvé", 404
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
