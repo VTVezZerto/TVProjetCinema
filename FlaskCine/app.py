@@ -31,21 +31,21 @@ def test_connection():
         if connection and connection.open:
             connection.close()
 
-@app.route("/insert")
-def insert_data():
-    co = get_connection()
-    curseur = co.cursor()
-    requete = """
-        INSERT INTO SEANCE
-        (id_salle, id_films, heure, langue)
-        VALUES (%s, %s, %s, %s)
-    """
-    valeurs = (3, 2, "2026-11-06 21:00:00", "VOSTFR")
-    curseur.execute(requete, valeurs)
-    co.commit()
-    curseur.close()
-    co.close()
-    return jsonify({"statut": "succes", "message": "Ligne insérée"}), 201
+#@app.route("/insert")
+#def insert_data():
+#    co = get_connection()
+    #     curseur = co.cursor()
+        #    requete = """
+        #        INSERT INTO SEANCE
+        #       (id_salle, id_films, heure, langue)
+    #         VALUES (%s, %s, %s, %s)
+    #   """
+    #   valeurs = (3, 2, "2026-11-06 21:00:00", "VOSTFR")
+    #   curseur.execute(requete, valeurs)
+    #  co.commit()
+    #  curseur.close()
+    #   co.close()
+#   return jsonify({"statut": "succes", "message": "Ligne insérée"}), 201
 
 @app.route('/')
 def index():
@@ -104,3 +104,37 @@ def details_film(id):
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
+
+@app.route('/seances')
+def seances():
+    co = get_connection()
+    curseur = co.cursor()
+    requete_sql = """
+                  SELECT SEANCE.id,
+                         SEANCE.heure,
+                         SEANCE.langue,
+                         FILMS.id AS id_film,
+                         FILMS.titre,
+                         SALLE.salle
+                  FROM SEANCE
+                           INNER JOIN FILMS ON SEANCE.id_films = FILMS.id
+                           INNER JOIN SALLE ON SEANCE.id_salle = SALLE.id
+                  WHERE SEANCE.heure >= NOW() AND SEANCE.id_salle = %s
+                  ORDER BY SEANCE.heure ASC
+                  """
+    curseur.execute(requete_sql, (1,))
+    seances_salle1 = curseur.fetchall()
+
+    curseur.execute(requete_sql, (2,))
+    seances_salle2 = curseur.fetchall()
+
+    curseur.execute(requete_sql, (3,))
+    seances_salle3 = curseur.fetchall()
+
+    curseur.close()
+    co.close()
+
+    return render_template('seances.html',
+                           salle1=seances_salle1,
+                           salle2=seances_salle2,
+                           salle3=seances_salle3)
