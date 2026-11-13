@@ -67,6 +67,27 @@
 
     {% endif %}
 
+    {% if seances_suivantes %}
+    <h2 class="mt-4">Séances suivantes</h2>
+    <div class="row">
+        {% for seance in seances_suivantes %}
+        <div class="col-sm-6 col-lg-6 mb-3">
+            <div class="row g-0 border">
+                <div class="col-4 border-end border-orange">
+                    <img src="{{ url_for('static', filename='img/' ~ seance['id_film'] ~ '.jpg') }}" class="img-fluid" alt="Affiche de {{ seance['titre'] }}">
+                </div>
+                <div class="col-8 p-3 border-green">
+                    <h4>{{ seance['titre'] }}</h4>
+                    <p>Séance à <strong>{{ seance['heure'] }}</strong> / {{ seance['salle'] }}</p>
+                    <h5>Résumé du film</h5>
+                    <p>{{ seance['resume'] or 'Aucun résumé disponible.' }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
 </div>
 
 <div class="container my-4">

@@ -62,20 +62,23 @@ def index():
                            INNER JOIN FILMS ON SEANCE.id_films = FILMS.id
                            INNER JOIN SALLE ON SEANCE.id_salle = SALLE.id
                   WHERE SEANCE.heure >= NOW()
-                  ORDER BY SEANCE.heure ASC LIMIT 1 \
+                  ORDER BY SEANCE.heure ASC LIMIT 3 \
                   """
     curseur.execute(requete_sql)
-    seance = curseur.fetchone()
+    seances = curseur.fetchall()
     curseur.close()
     co.close()
 
-    return render_template('index.html', prochaine_seance=seance)
+    prochaine = seances[0] if len(seances) > 0 else None
+    suivantes = seances[1:] if len(seances) > 1 else []
+
+    return render_template('index.html', prochaine_seance=prochaine, seances_suivantes=suivantes)
 
 @app.route('/film/<int:id>')
 def details_film(id):
     co = get_connection()
     curseur = co.cursor()
-    # Requête calquée strictement sur vos colonnes : id, titre, resume, age_limite, heure, langue, salle
+    # Requête sur les colonnes : id, titre, resume, age_limite, heure, langue, salle
     requete_sql = """
                   SELECT FILMS.id, 
                          FILMS.titre, 
