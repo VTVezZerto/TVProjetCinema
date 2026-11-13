@@ -48,14 +48,14 @@ def insert_data():
     return jsonify({"statut": "succes", "message": "Ligne insérée"}), 201
 
 @app.route('/')
-def select_data():
+def index():
     co = get_connection()
     curseur = co.cursor()
     requete_sql = """
                   SELECT SEANCE.id,
                          SEANCE.heure,
                          FILMS.titre,
-                         FILMS.affiche, -- AJOUTÉ : Pour charger l'image sur l'accueil
+                         FILMS.id AS id_film, 
                          SALLE.salle,
                          FILMS.resume
                   FROM SEANCE
@@ -77,12 +77,12 @@ def details_film(id):
     curseur = co.cursor()
     # Requête calquée strictement sur vos colonnes : id, titre, resume, age_limite, heure, langue, salle
     requete_sql = """
-                  SELECT FILMS.id, \
-                         FILMS.titre, \
-                         FILMS.resume, \
+                  SELECT FILMS.id, 
+                         FILMS.titre, 
+                         FILMS.resume, 
                          FILMS.age_limite,
-                         SEANCE.heure, \
-                         SEANCE.langue, \
+                         SEANCE.heure, 
+                         SEANCE.langue, 
                          SALLE.salle
                   FROM FILMS
                            LEFT JOIN SEANCE ON FILMS.id = SEANCE.id_films

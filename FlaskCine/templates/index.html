@@ -51,7 +51,7 @@
 
     <div class="row">
         <div class="col-sm-4 col-lg-4 border border-orange">
-            <img src="{{ url_for('static', filename='img/' ~ prochaine_seance['id'] ~ '.jpg') }}" class="img-fluid" alt="Affiche du film">
+            <img src="{{ url_for('static', filename='img/' ~ prochaine_seance['id_film'] ~ '.jpg') }}" class="img-fluid" alt="Affiche du film">
         </div>
         <div class="col-sm-8 col-lg-8 border border-green">
             <h3>{{ prochaine_seance['titre'] }}</h3>

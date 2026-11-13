@@ -25,11 +25,11 @@
 
             <h2> Séances </h2>
             <ul>
-                <!-- Utilisation de vos vraies variables : heure, salle, langue -->
+
                 <li>Prochaine séance : {{ film['heure'] }} / {{ film['salle'] }} / {{ film['langue'] }}</li>
             </ul>
 
-            <!-- Gestion du logo d'interdiction basée sur votre colonne 'age_limite' -->
+
             {% if film['age_limite'] == 16 %}
             <div class="mt-3">
                 <img src="{{ url_for('static', filename='img/interdiction-moins-de-16-ans.png') }}" width="50" class="img-fluid" alt="Interdit -16">
@@ -38,8 +38,8 @@
         </div>
 
         <div class="col-md-3 border border-green text-center p-3">
-            <!-- ASTUCE IMAGE : On va chercher l'image qui porte l'id du film (ex: static/img/1.jpg ou 2.png) -->
-            <!-- Renommez simplement vos images '1.jpg', '2.jpg' dans votre dossier 'static/img/' pour que ça marche tout seul ! -->
+
+
             <img src="{{ url_for('static', filename='img/' ~ film['id'] ~ '.jpg') }}" class="img-fluid mb-3" alt="Affiche du film">
 
             {% if film['age_limite'] == 16 %}
