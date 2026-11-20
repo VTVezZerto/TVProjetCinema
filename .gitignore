@@ -1,3 +1,9 @@
 /html/.idea
 /FlaskCine/.idea
 FlaskCine/config.env
+FlaskCine/.venv/
+__pycache__/
+*.pyc
+FlaskCine/config.env
+FlaskCine/instance/
+*.db
