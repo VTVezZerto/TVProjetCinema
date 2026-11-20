@@ -24,7 +24,7 @@
     <div class="row text-center py-3">
         {% for seance in salle1 %}
         <div class="col-4 mb-4">
-            <a href="{{ url_for('details_film', id=seance['id_film']) }}">
+            <a href="{{ url_for('details_film', id_film=seance['id_film']) }}">
                 <img src="{{ url_for('static', filename='img/' ~ seance['id_film'] ~ '.jpg') }}"
                      class="img-fluid mb-2" alt="{{ seance['titre'] }}">
             </a>
@@ -47,7 +47,7 @@
     <div class="row text-center py-3">
         {% for seance in salle2 %}
         <div class="col-4 mb-4">
-            <a href="{{ url_for('details_film', id=seance['id_film']) }}">
+            <a href="{{ url_for('details_film', id_film=seance['id_film']) }}">
                 <img src="{{ url_for('static', filename='img/' ~ seance['id_film'] ~ '.jpg') }}"
                      class="img-fluid mb-2" alt="{{ seance['titre'] }}">
             </a>
@@ -70,7 +70,7 @@
     <div class="row text-center py-3">
         {% for seance in salle3 %}
         <div class="col-4 mb-4">
-            <a href="{{ url_for('details_film', id=seance['id_film']) }}">
+            <a href="{{ url_for('details_film', id_film=seance['id_film']) }}">
                 <img src="{{ url_for('static', filename='img/' ~ seance['id_film'] ~ '.jpg') }}"
                      class="img-fluid mb-2" alt="{{ seance['titre'] }}">
             </a>
