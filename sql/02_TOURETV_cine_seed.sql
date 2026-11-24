@@ -11,7 +11,6 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -21,12 +20,42 @@ SET time_zone = "+00:00";
 -- Database: `touret-v_cinema`
 --
 
+SET FOREIGN_KEY_CHECKS=0;
+
+-- 1. Tables parentes (aucune dépendance)
+
+--
+-- Dumping data for table `SALLE`
+--
+
+INSERT INTO `SALLE` (`id`, `salle`, `nb_fauteuils`, `nb_pmr`, `taille_ecran`, `services`, `techs`) VALUES
+(1, 'Salle 1', 0, 0, 'N/A', NULL, NULL),
+(2, 'Salle 2', 0, 0, 'N/A', NULL, NULL),
+(3, 'Salle 3', 0, 0, 'N/A', NULL, NULL),
+(4, 'Salle 4', 0, 0, 'N/A', NULL, NULL),
+(5, 'Salle 5', 0, 0, 'N/A', NULL, NULL),
+(6, 'Salle 6', 0, 0, 'N/A', NULL, 'Premium ICE'),
+(7, 'Salle 7', 0, 0, 'N/A', NULL, NULL),
+(8, 'Salle 8', 0, 0, 'N/A', NULL, 'Premium ICE'),
+(9, 'Salle 9', 0, 0, 'N/A', NULL, NULL),
+(10, 'Salle 10', 0, 0, 'N/A', NULL, NULL),
+(11, 'Salle 11', 0, 0, 'N/A', NULL, 'grand écran'),
+(15, 'Salle Prof', 0, 0, 'N/A', NULL, NULL);
+
+--
+-- Dumping data for table `FILMS`
+--
+
+INSERT INTO `FILMS` (`id`, `titre`, `age_limite`, `duree`, `langue`, `resume`) VALUES
+(4, 'Croquette', 0, 95, 'VF', NULL),
+(5, 'Smile', 16, 127, 'VOSTFR', NULL),
+(6, 'Lee Miller', 0, 130, 'VF', NULL);
+
+-- 2. Tables enfants de niveau 1 (dépendent de SALLE et/ou FILMS)
+
 --
 -- Dumping data for table `CARTE`
 --
-
-SET FOREIGN_KEY_CHECKS=0;
-
 
 INSERT INTO `CARTE` (`id`, `nom`, `id_salle`, `numero`) VALUES
 (1, 'Capteur 101', 1, 101),
@@ -53,13 +82,18 @@ INSERT INTO `CARTE` (`id`, `nom`, `id_salle`, `numero`) VALUES
 (22, 'Capteur 15', 15, 15);
 
 --
--- Dumping data for table `FILMS`
+-- Dumping data for table `SEANCE`
 --
 
-INSERT INTO `FILMS` (`id`, `titre`, `age_limite`, `duree`, `langue`, `resume`) VALUES
-(4, 'Croquette', 0, 95, 'VF', NULL),
-(5, 'Smile', 16, 127, 'VOSTFR', NULL),
-(6, 'Lee Miller', 0, 130, 'VF', NULL);
+INSERT INTO `SEANCE` (`id`, `id_salle`, `id_films`, `heure`, `langue`) VALUES
+(49, 1, 6, '2026-11-04 00:00:00', 'VF'),
+(50, 2, 5, '2026-11-12 00:00:00', 'VF'),
+(51, 3, 4, '2026-11-20 00:00:00', 'VF'),
+(52, 1, 6, '2026-11-25 00:00:00', 'VOSTFR'),
+(53, 2, 5, '2026-11-28 00:00:00', 'VF'),
+(54, 3, 4, '2026-11-30 00:00:00', 'VF');
+
+-- 3. Tables enfants de niveau 2 (dépend de CARTE)
 
 --
 -- Dumping data for table `MESURE`
@@ -79,35 +113,6 @@ INSERT INTO `MESURE` (`id`, `date`, `temperature`, `humidite`, `co2`, `id_carte`
 (51, '2026-09-30 14:45:00', 26.01, 42.59, 924.35, 21),
 (52, '2026-09-30 14:50:00', 22.17, 66.58, 767.08, 21);
 
---
--- Dumping data for table `SALLE`
---
-
-INSERT INTO `SALLE` (`id`, `salle`, `nb_fauteuils`, `nb_pmr`, `taille_ecran`, `services`, `techs`) VALUES
-(1, 'Salle 1', 0, 0, 'N/A', NULL, NULL),
-(2, 'Salle 2', 0, 0, 'N/A', NULL, NULL),
-(3, 'Salle 3', 0, 0, 'N/A', NULL, NULL),
-(4, 'Salle 4', 0, 0, 'N/A', NULL, NULL),
-(5, 'Salle 5', 0, 0, 'N/A', NULL, NULL),
-(6, 'Salle 6', 0, 0, 'N/A', NULL, 'Premium ICE'),
-(7, 'Salle 7', 0, 0, 'N/A', NULL, NULL),
-(8, 'Salle 8', 0, 0, 'N/A', NULL, 'Premium ICE'),
-(9, 'Salle 9', 0, 0, 'N/A', NULL, NULL),
-(10, 'Salle 10', 0, 0, 'N/A', NULL, NULL),
-(11, 'Salle 11', 0, 0, 'N/A', NULL, 'grand écran'),
-(15, 'Salle Prof', 0, 0, 'N/A', NULL, NULL);
-
---
--- Dumping data for table `SEANCE`
---
-
-INSERT INTO `SEANCE` (`id`, `id_salle`, `id_films`, `heure`, `langue`) VALUES
-(49, 1, 6, '2026-11-04 00:00:00', 'VF'),
-(50, 2, 5, '2026-11-12 00:00:00', 'VF'),
-(51, 3, 4, '2026-11-20 00:00:00', 'VF'),
-(52, 1, 6, '2026-11-25 00:00:00', 'VOSTFR'),
-(53, 2, 5, '2026-11-28 00:00:00', 'VF'),
-(54, 3, 4, '2026-11-30 00:00:00', 'VF');
 COMMIT;
 SET FOREIGN_KEY_CHECKS=1;
 
